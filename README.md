@@ -1,5 +1,4 @@
-alamedaparcels   
-==============
+
 #scrape that alameda parcel data!  
 ####Author: Chris Gian  
 ####Date: 11/17/2014  
