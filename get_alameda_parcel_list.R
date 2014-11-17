@@ -13,7 +13,7 @@ checkdown<-function(x){
 
 checkdown('tcltk2') # for popup boxes
 checkdown('shapefiles') # for scraping
-checkdown('rgdal')
+
 # Load Packages #
 require('shapefiles')
 require('tcltk2')
@@ -56,5 +56,5 @@ shape<-unzip(zipfile=file,exdir = path_file)
 
 x<-read.dbf(shape[4])
 attributes<-x[[1]][,1]
-write.csv(attributes,paste(path_output,".csv",sep=""))
+write.csv(attributes,paste(path_output,"/parcel_id.csv",sep=""))
 
