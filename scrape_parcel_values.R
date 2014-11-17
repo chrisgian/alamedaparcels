@@ -117,8 +117,8 @@ set<-data.frame("variable"=c(
   'Total Net Taxable Value'),'values'=extract[-1,1],"parcel"=parcellist[i])
 #
 parcel_dataset<-rbind(parcel_dataset,set)
-# 1 second sleep
-Sys.sleep(1)
+# 1/10 second sleep
+Sys.sleep(.1)
 
 }
 # close the progress bar
