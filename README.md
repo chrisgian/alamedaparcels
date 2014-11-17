@@ -1,8 +1,8 @@
 alamedaparcels   
 ==============
 #scrape that alameda parcel data!  
-###Author: Chris Gian  
-###Date: 11/17/2014  
+####Author: Chris Gian  
+####Date: 11/17/2014  
 Hey everyone!  
 
 These two scripts will together allow you to scrape alameda county's parcel data.
