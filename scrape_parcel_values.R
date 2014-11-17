@@ -38,17 +38,45 @@ dir.create('output')
 path_file<-paste(getwd(),"/files",sep="")
 path_output<-paste(getwd(),"/output",sep="")
 
-
+## proto
 parcel<-"11-836-1-1"
 url<-paste('http://www.acgov.org/MS/prop/index.aspx?PRINT_PARCEL=',parcel,sep="")
 parse<-htmlParse(url)
-a<-data.frame(xpathSApply(parse,"//span[@class='desc2']",xmlValue))
 
-data.frame("variable"=c('Use Code',
-  'Description','land',
-  'improvements','Fixtures',
-  'Household Personal Property',
-  'Business Personal Property',
-  'Total Taxable Value','Homeowner',
-  'Other','Total Net Taxable Value'),
-  'values'=a[-1,1],"parcel"=parcel)
+
+## proto end
+parcel
+for (i in parcel){
+  
+  url<-paste('http://www.acgov.org/MS/prop/index.aspx?PRINT_PARCEL=',parcel,sep="")
+  err <- try(htmlParse(url),silent=T)
+
+if (
+    class(err) == "try-error")
+    {next
+    }else{
+      parse<-htmlParse(url)
+      }
+  )
+extract<-data.frame(xpathSApply(parse,"//span[@class='desc2']",xmlValue))
+set<-data.frame("variable"=c(
+  'Use Code','Description','land','improvements','Fixtures',
+  'Household Personal Property','Business Personal Property',
+  'Total Taxable Value','Homeowner','Other',
+  'Total Net Taxable Value'),'values'=a[-1,1],"parcel"=parcel)
+             
+  
+}
+
+
+#trycatch
+err <- try( #parse )
+
+  # add a little time jiggler
+if (class(err) == "try-error"){
+  next}else{
+    # parse it
+    # add a little progress bar
+      )
+)    
+  } 
