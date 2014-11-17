@@ -12,12 +12,12 @@ checkdown<-function(x){
     install.packages(x)}}
 
 checkdown('RCurl') # for scraping
-checkdown('gtools') # for mixed ordering
+checkdown('XML') # for mixed ordering
 checkdown('tcltk2') # for popup boxes
  
 # Load Packages #
 require('Rcurl')
-require('gtools')
+require('XML')
 require('tcltk2')
 
 # pop up message windo #
@@ -37,3 +37,18 @@ dir.create('files')
 dir.create('output')
 path_file<-paste(getwd(),"/files",sep="")
 path_output<-paste(getwd(),"/output",sep="")
+
+
+parcel<-"11-836-1-1"
+url<-paste('http://www.acgov.org/MS/prop/index.aspx?PRINT_PARCEL=',parcel,sep="")
+parse<-htmlParse(url)
+a<-data.frame(xpathSApply(parse,"//span[@class='desc2']",xmlValue))
+
+data.frame("variable"=c('Use Code',
+  'Description','land',
+  'improvements','Fixtures',
+  'Household Personal Property',
+  'Business Personal Property',
+  'Total Taxable Value','Homeowner',
+  'Other','Total Net Taxable Value'),
+  'values'=a[-1,1],"parcel"=parcel)
