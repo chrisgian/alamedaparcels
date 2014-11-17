@@ -29,14 +29,15 @@ pop <- function(x) {
   tkwait.window(tt)
 }
 
-pop('Description: \<newline> 
-    This script does some really tedious things for you. \<newline>
-    First: it downloads a geospatial file for alameda county\<newline>
-    Second: it strips all the parcel id numbers for you\<newline>
-    finally: it formats that data for you to use in the scraper script!'
+pop('Description:
+    This script does some really tedious things for you.
+    First: it downloads a geospatial file for alameda county
+    Second: it strips all the parcel id numbers for you
+    finally: it formats that data for you to use in the 
+    scraper script!'
     )
 
-pop('This script will download a 100+ Mb file 
+pop('This script will now download a 100+ Mb file 
     in order to extract some values! Be warned. 
     Click to continue.')
 
@@ -49,7 +50,7 @@ path_output<-paste(getwd(),"/output",sep="")
 
 alameda_zip_url<-'https://www.acgov.org/maps/geospatial/geospatial.zip'
 file<-paste(path_file,"/geo.zip",sep="")
-download.file(alameda_zip_url,file,mode='wb')
+#download.file(alameda_zip_url,file,mode='wb')
 
 # unzip
 shape<-unzip(zipfile=file,exdir = path_file)
@@ -57,4 +58,6 @@ shape<-unzip(zipfile=file,exdir = path_file)
 x<-read.dbf(shape[4])
 attributes<-x[[1]][,1]
 write.csv(attributes,paste(path_output,"/parcel_id.csv",sep=""))
-
+pop(
+  paste("Sweet! The file just got saved at ",path_output,"/parcel_id.csv",sep="")
+)
