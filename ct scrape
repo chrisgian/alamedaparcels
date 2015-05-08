@@ -1,0 +1,51 @@
+checkdown<-function(x){
+  if(x %in% rownames(installed.packages()) == FALSE) {
+    install.packages(x)}}
+
+checkdown('RCurl') # for scraping
+checkdown('XML') # for mixed ordering
+checkdown('tcltk2') # for popup boxes
+
+# Load Packages #
+require('RCurl')
+require('XML')
+require('tcltk2')
+
+place <- 'plainfieldct' # need to grab entire vector of places
+pid   <- 3 # need to replace this with an entire vector of PIDS
+
+
+
+# pop up message windo #
+pop <- function(x) {
+  tt <- tktoplevel()
+  tkpack( tkbutton(tt, text=x, command=function()tkdestroy(tt)),
+          side='bottom')
+  tkbind(tt,'<Key>', function()tkdestroy(tt) )
+  tkfocus(tt)
+  tkwait.window(tt)
+}
+
+# some sort of welcome message
+pop("Hey there! Thanks for using this script.")
+
+#### loop starts here ####
+
+# build URLs 
+url     <- paste0('http://gis.vgsi.com/',place,'/Parcel.aspx?pid=',pid)
+# insert try catch here
+parse   <- htmlParse(url)
+extract <- data.frame(xpathSApply(parse,"//tr[@class='RowStyle']",xmlValue))[1:2,]
+# extracted into data.frame
+extract %<>% 
+  gsub('\n|\r|\t','',.) %>% 
+  data.frame(x = .) %>% 
+  separate(., x, c('year', 'improvements', 'land', 'total'),'\\$') %>% 
+  mutate( type = c('appraisal', 'assessment'), 
+          place = place, 
+          pid = pid)
+# loop into larger dataframe
+### end loop ###
+
+#write into a csv
+  
